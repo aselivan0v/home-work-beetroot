@@ -11,20 +11,21 @@ def make_operation(x, *args):
     if x == '+':
         for q in args:
             result += q
-        return print(result)
+        print(result)
     elif x == '-':
         t = 1
         r = args[0]
         while t < len(args):
             r = r - args[t]
             t += 1
-            return print(r)
+        print(r)
     elif x == '*':
         result = 1
         for q in args:
             result = result * q
-        return print(result)
+        print(result)
+        return
 
 make_operation('+', 7, 7, 2)
-make_operation('-', 5, 5, -10, -10)
+make_operation('-', 5, 5, -10, -20)
 make_operation('*', 7, 6)
