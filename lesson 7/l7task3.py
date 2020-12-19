@@ -19,6 +19,12 @@ def make_operation(x, *args):
             r = r - args[t]
             t += 1
             return print(r)
+    elif x == '*':
+        result = 1
+        for q in args:
+            result = result * q
+        return print(result)
 
 make_operation('+', 7, 7, 2)
-make_operation('-', 6, 5, -10, -10)
+make_operation('-', 5, 5, -10, -10)
+make_operation('*', 7, 6)
