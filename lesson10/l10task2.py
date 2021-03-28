@@ -5,14 +5,16 @@
 
 class Dog:
     age_factor = 7
-    def __init__(self, dogs_age):
-        self.dogs_age = dogs_age
 
-    def Humen_age(self):
-        return (f'Humen age = {self.dogs_age * Dog.age_factor}')
+    def __init__(self, DogsAge):
+        self.Dogs_Age = DogsAge
+
+    def human_age(self):
+        return f'Human age = {self.Dogs_Age * Dog.age_factor}'
+
 
 test = Dog(3)
-print(test.Humen_age())
+print(test.human_age())
 
 test2 = Dog(9)
-print(test2.Humen_age())
+print(test2.human_age())

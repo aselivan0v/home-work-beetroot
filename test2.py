@@ -1,25 +1,25 @@
-def fib_rec(n):
-    if n < 2:
-        return n
-    return fib_rec(n-1) + fib_rec(n-2)
+class A:
+      def __init__(self, x):
+            self.class_A_atr = x * 3
 
+      def some_method(self):
+            return 'Text'
 
-def factorial(n):
-    if n == 1:
-        return 1
-    return n * factorial(n-1)
+class B(A):
+      def __init__(self, x):
+            self.class_B_atr = x
 
-def to_bin(n):
-    if n == 0 or n == 1:
-        return str(n)
-    return to_bin(n // 2) + str(n%2)
-#print(to_bin(255))
-#print(hex(37))
-#print(int('4445', base = 8)
+class C(B, A):
+      def __init__(self, x, y):
+            self.class_C_atr = y
+            super(B, self).__init__(x)
 
-def to_digit(n, base = 10):
-    if n <  base:
-        return  str(n) if n < 10 else chr(n + 55)
-    return to_digit(n//base, base) + str(n%base if n%base < 10 else chr (n%base + 55))
+a = A('Text A')
+b = B('Text B')
+c = C('Text C - 1', 'Text C - 2')
 
-print(to_digit(42, 16))
+print(dir(a))
+print(dir(b))
+print(dir(c))
+
+print(c.__module__)

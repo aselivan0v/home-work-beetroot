@@ -17,52 +17,92 @@
 # to loaded JSON.
 import json
 
-my_dict = {}
-my_dict['age'] = 25
-my_dict['name'] = 'Carl'
-my_dict['data'] = [1, 7, 18]
-my_dict['float'] = 1.1
-
-def add_new_entries():
-    '''
-    text comment =_= =_=
-    :return:
+FILENAME = 'Phonebook.json'
 
 
-    '''
-    pass
+def add_new_entries(entries, first_name, last_name, telephone_number, city):
+    new_entrie = {}
+    new_entrie['first_name'] = first_name
+    new_entrie['last_name'] = last_name
+    new_entrie['telephone_number'] = telephone_number
+    new_entrie['city'] = city
+    new_entrie['id'] = int(max(entries)) + 1
+    entries[new_entrie['id']] = new_entrie
 
-def search_by_first_name():
-    pass
+    write_file(entries)
 
-def search_by_last_name():
-    pass
 
-def search_by_full_name():
-    pass
 
-def search_by_telephone_number():
-    pass
+def search_by_first_name(entries, first_name):
+    resalt = []
+    for a in entries:
+        if (entries[a]['first_name'] == first_name):
+            resalt.append([first_name, entries[a]['last_name'], entries[a]['telephone_number'], entries[a]['city']])
+    if not resalt:
+        return 'Такого имени нет'
+    return resalt
 
-def search_by_city_or_state():
-    pass
+def search_by_last_name(last_name):
+    for x in entries:
+        if (entries[x]['last_name'] == last_name):
+            return 'Такая фамилия есть'
+    return 'Такой фамилии нет'
+
+
+def search_by_full_name(first_name, last_name):
+    for x in entries:
+        for q in entries:
+            if (entries[x]['first_name'] == first_name and entries[q]['last_name'] == last_name):
+                return 'Такое ФИО есть'
+    return 'Такого ФИО нет'
+
+
+def search_by_telephone_number(telephone_number):
+    for x in entries:
+        if (entries[x]['telephone_number'] == telephone_number):
+            return 'Такой номер есть'
+    return 'Такого номера нет'
+
+
+def search_by_city_or_state(city):
+    for x in entries:
+        if (entries[x]['city'] == city):
+            return 'Такой город есть'
+    return 'Такого города нет'
+
 
 def delete_a_record_for_a_given_telephone_number():
     pass
 
-def update_a_record_for_a_given_telephone_number():
-    pass
+def update_a_record_for_a_given_telephone_number(entries, telephone_number):
+    new_entries = {}
+    for x in entries:
+        print(x, type(x), entries[x]['telephone_number'], type( entries[x]['telephone_number'] ))
+        new_number = {}
+        if entries[str(x)]['telephone_number'] == telephone_number:
+            new_number['telephone_number'] = input('Такой номер есть! \nВведите новый номер: ')
+            new_entries.update(new_number)
+            write_file(new_entries)
+        else:
+            new_entries[x] = entries[x]
+            # return print('Поздравляем, ввели новый номер: ', new_number)
+    return 'Такого номера нет'
 
 def an_option_to_exit_the_program():
     pass
 
 def read_file():
-    pass
+    with open(FILENAME) as file:
+        x = json.load(file)
+    return x
 
-def write_file():
-    pass
+def write_file(dict):
+    with open(FILENAME, 'w') as file:
+        json.dump(dict, file)
+
 
 def main():
+    entries = read_file()
     while True:
         print( '''1. Add new entries
 2. Search by first name
@@ -74,4 +114,30 @@ def main():
 8. Update a record for a given telephone number
 9. An option to exit the program''')
 
-add_new_entries()
+        choice = input()
+        if choice == '1': add_new_entries(entries,
+                                          input('first name '),
+                                          input('last name '),
+                                          input('telephone_number '),
+                                          input('city'))
+        if choice == '2': print(search_by_first_name(entries, input('Введите имя ')))
+        if choice == '8': print(update_a_record_for_a_given_telephone_number(entries, input('Введите номер: ')))
+
+
+
+
+# print(entries)
+#add_new_entries(24, 'Dima', 'Savchuk', '98745661', 'Kyiv')
+# print(entries)
+#
+# print(search_by_first_name('Sacha'))
+# print(search_by_last_name('Selivanov'))
+# print(search_by_telephone_number('98745661'))
+# print(search_by_city_or_state('Kyiv'))
+# print(search_by_full_name('Artem', 'Savchuk'))
+# print(update_a_record_for_a_given_telephone_number('98745661'))
+# print(entries)
+# write_file(entries)
+# print(read_file(), type(read_file()))
+
+main()
